@@ -17,7 +17,7 @@ uart_tx = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
 BLUEZ_SERVICE = 'org.bluez'
 DEVICE_INTERFACE = 'org.bluez.Device1'
 adapter_path = '/org/bluez/hci0'
-DEVICE_NAME = "21ABH045"
+DEVICE_NAME = "21ABH058"
 HAND_NAME_PREFIX = "PSYONIC"
 
 #############################
@@ -62,12 +62,11 @@ def on_iface_added(path, interfaces):
 
 
 ## First, make sure discovery is off then remove all old bluetooth devices
-print("Setup")
 try:
     adapter.StopDiscovery()
 except GLib.Error as err:
     pass
-print("Remove Old Devices")
+print("Removing Old Psyonic Devices")
 remove_psyonic_devices()
 
 ## Scan for devices until timeout or found
@@ -105,7 +104,7 @@ print("Attempting to connect...   " + address)
 ubit = BLE_GATT.Central(address)
 ubit.connect()
 ubit.on_value_change(uart_tx, notify_handler)
-print(f"\033[Connection Successful\033[0m")
+print(f"\033[0m  Connection Successful\033[0m")
 print("---------------")
 
 ## First get the name
@@ -117,7 +116,7 @@ ubit.wait_for_notifications()
 
 name = f"{bytes(received[:8]).decode('UTF-8')}"
 time.sleep(0.25)
-print(f"Found name: \033[36m" + name + f"\033[0m")
+print(f"  Found name: \033[36m" + name + f"\033[0m")
 if not DEVICE_NAME in name:
 	ubit.cleanup()
 	sys.exit(f"\033[91mError: Device Name not a match\033[0m")
@@ -138,6 +137,7 @@ if len(received) != 4068:
   print("Received: " + str(len(received)))
   sys.exit(f"\033[91mError: Did not receive required number of bytes\033[0m")
 
+print("Generating Log File")
 fcontent = bytearray(received)
 #fcontent = fcontent.replace("x","")
 #fcontent = fcontent[2:-1]
