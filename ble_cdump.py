@@ -17,10 +17,21 @@ uart_tx = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'
 BLUEZ_SERVICE = 'org.bluez'
 DEVICE_INTERFACE = 'org.bluez.Device1'
 adapter_path = '/org/bluez/hci0'
-DEVICE_NAME = "21ABH058"
+#DEVICE_NAME = "21ABH058"
 HAND_NAME_PREFIX = "PSYONIC"
+NAME_LENGTH = 8
 
 #############################
+
+
+DEVICE_NAME = input("Input Hand Name (i.e. 21ABH058): \n")
+
+if len(DEVICE_NAME) > NAME_LENGTH:
+	sys.exit(f"\033[91mError: Device Name invalid, must be no more than " + NAME_LENGTH + f" characters\033[0m")
+
+print("Using Name: " + DEVICE_NAME)
+print("---------------")
+
 
 ##### GLOBALS         ######
 address = ""
