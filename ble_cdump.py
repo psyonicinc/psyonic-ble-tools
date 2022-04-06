@@ -90,7 +90,7 @@ adapter.StartDiscovery()
 mainloop.run()
 
 ## Exit if the address is still blank
-if address is "":
+if address == "":
 	sys.exit(f"\033[91mError: Did not find address for device: \033[36m" + DEVICE_NAME + f"\033[0m")
 
 
