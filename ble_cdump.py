@@ -27,7 +27,7 @@ NAME_LENGTH = 8
 DEVICE_NAME = input("Input Hand Name (i.e. 21ABH058): \n")
 
 if len(DEVICE_NAME) > NAME_LENGTH:
-	sys.exit(f"\033[91mError: Device Name invalid, must be no more than " + NAME_LENGTH + f" characters\033[0m")
+	sys.exit(f"\033[91mError: Device Name invalid, must be no more than " + str(NAME_LENGTH) + f" characters\033[0m")
 
 print("Using Name: " + DEVICE_NAME)
 print("---------------")
